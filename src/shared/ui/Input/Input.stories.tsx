@@ -4,6 +4,7 @@ import { Input } from "./Input";
 const meta: Meta<typeof Input> = {
   title: "shared/ui/Input",
   component: Input,
+  tags: ["autodocs"],
   args: {
     placeholder: "Enter your name",
   },
