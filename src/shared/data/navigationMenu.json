@@ -1,0 +1,28 @@
+[
+  {
+    "key": "analytics",
+    "label": "Analytics",
+    "path": "/analytics",
+    "children": [
+      {
+        "key": "traffic",
+        "label": "Traffic Overview",
+        "path": "/analytics/traffic"
+      },
+      { "key": "sales", "label": "Sales Reports", "path": "/analytics/sales" }
+    ]
+  },
+  {
+    "key": "management",
+    "label": "User Management",
+    "path": "/management",
+    "children": [
+      { "key": "users", "label": "Users List", "path": "/management/users" },
+      {
+        "key": "roles",
+        "label": "Roles & Permissions",
+        "path": "/management/roles"
+      }
+    ]
+  }
+]
