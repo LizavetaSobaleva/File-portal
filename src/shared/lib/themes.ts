@@ -1,6 +1,10 @@
-type Environment = "default" | "dev" | "local" | "test" | "preprod" | "prod";
+import { Environment } from "@/shared/types/environment";
+import { ThemeDefinition } from "../types/theme";
+import { getAppEnv } from "../config/env";
 
-export const componentThemes = {
+const env: Environment = getAppEnv();
+
+export const componentThemes: Record<Environment, ThemeDefinition> = {
   default: {
     primaryColor: "#78909C60",
     textColor: "#EBEBEB",
@@ -33,7 +37,4 @@ export const componentThemes = {
   },
 } as const;
 
-export const getComponentTheme = () => {
-  const env = (import.meta.env.VITE_APP_ENV as Environment) || "local";
-  return componentThemes[env];
-};
+export const getComponentTheme = () => componentThemes[env];
