@@ -3,7 +3,7 @@ type Environment = NonNullable<Window["_env_"]["REACT_APP_ENVIRONMENT_NAME"]>;
 const fallbackEnv: Window["_env_"] = {
   GENERATE_SOURCEMAP: "",
   PORT: "",
-  REACT_APP_ENVIRONMENT_NAME: "default",
+  REACT_APP_ENVIRONMENT_NAME: "DEFAULT",
   REACT_APP_BACKEND_URL: "",
   REACT_APP_HOST: "",
 };

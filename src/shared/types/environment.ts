@@ -1,7 +1,7 @@
 export type Environment =
-  | "default"
-  | "dev"
-  | "local"
-  | "test"
-  | "preprod"
-  | "prod";
+  | "DEFAULT"
+  | "DEV"
+  | "LOCAL"
+  | "TEST"
+  | "PREPROD"
+  | "PROD";
