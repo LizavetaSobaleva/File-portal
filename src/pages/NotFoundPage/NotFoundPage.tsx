@@ -1,6 +1,6 @@
 import { Result } from "antd";
 import { useNavigate } from "react-router";
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@shared/ui/Button";
 
 export const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();

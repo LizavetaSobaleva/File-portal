@@ -6,10 +6,10 @@ import {
   EyeTwoTone,
 } from "@ant-design/icons";
 
-import { Input } from "@/shared/ui/Input";
-import { Button } from "@/shared/ui/Button";
-import { Form } from "@/shared/ui/Form";
-import { Title } from "@/shared/ui/Typography";
+import { Input } from "@shared/ui/Input";
+import { Button } from "@shared/ui/Button";
+import { Form } from "@shared/ui/Form";
+import { Title } from "@shared/ui/Typography";
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);

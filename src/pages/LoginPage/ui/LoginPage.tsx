@@ -1,5 +1,5 @@
-import { LoginForm } from "@/features/Auth";
-import { SplitScreenLayout } from "@/shared/ui/SplitScreenLayout";
+import { LoginForm } from "@features/Auth";
+import { SplitScreenLayout } from "@shared/ui/SplitScreenLayout";
 
 export const LoginPage = () => {
   return (

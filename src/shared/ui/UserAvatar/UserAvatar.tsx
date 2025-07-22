@@ -1,6 +1,6 @@
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { getComponentTheme } from "@/shared/lib/themes";
+import { getComponentTheme } from "@shared/lib/themes";
 
 interface UserAvatarProps {
   userAvatarUrl?: string;

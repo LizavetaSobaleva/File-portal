@@ -1,10 +1,10 @@
 import { Layout, MenuProps } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { Menu } from "@/shared/ui/Menu";
-import { InformationBanner } from "@/widgets/InformationBanner";
-import { UserCard } from "@/widgets/UserCard";
-import navigationMenu from "@/shared/data/navigationMenu.json";
+import { Menu } from "@shared/ui/Menu";
+import { InformationBanner } from "@widgets/InformationBanner";
+import { UserCard } from "@widgets/UserCard";
+import navigationMenu from "@shared/data/navigationMenu.json";
 
 const { Sider } = Layout;
 

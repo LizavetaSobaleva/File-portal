@@ -1,6 +1,6 @@
-import { Environment } from "@/shared/types/environment";
-import { ThemeDefinition } from "@/shared/types/theme";
-import { ENVIRONMENT_NAME } from "@/shared/config/env";
+import { Environment } from "@shared/types/environment";
+import { ThemeDefinition } from "@shared/types/theme";
+import { ENVIRONMENT_NAME } from "@shared/config/env";
 
 export const componentThemes: Record<Environment, ThemeDefinition> = {
   DEFAULT: {

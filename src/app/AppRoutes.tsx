@@ -1,12 +1,12 @@
 import { JSX } from "react";
 import { Routes, Route } from "react-router";
-import { AnalyticsSales } from "@/pages/AnalyticsSales";
-import { AnalyticsTraffic } from "@/pages/AnalyticsTraffic";
-import { LoginPage } from "@/pages/LoginPage";
-import { MainPage } from "@/pages/MainPage";
-import { NotFoundPage } from "@/pages/NotFoundPage";
-import navigationMenu from "@/shared/data/navigationMenu.json";
-import { MenuItem } from "@/shared/types/navigation";
+import { AnalyticsSales } from "@pages/AnalyticsSales";
+import { AnalyticsTraffic } from "@pages/AnalyticsTraffic";
+import { LoginPage } from "@pages/LoginPage";
+import { MainPage } from "@pages/MainPage";
+import { NotFoundPage } from "@pages/NotFoundPage";
+import navigationMenu from "@shared/data/navigationMenu.json";
+import { MenuItem } from "@shared/types/navigation";
 
 const routeComponentMap: Record<string, JSX.Element> = {
   "/analytics/traffic": <AnalyticsTraffic />,

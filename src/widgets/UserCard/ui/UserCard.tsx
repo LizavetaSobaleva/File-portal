@@ -1,5 +1,5 @@
 import { Tooltip } from "antd";
-import { UserAvatar } from "@/shared/ui/UserAvatar";
+import { UserAvatar } from "@shared/ui/UserAvatar";
 import styles from "./UserCard.module.css";
 
 interface UserCardProps {
