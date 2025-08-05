@@ -10,16 +10,25 @@ import { Input } from "@shared/ui/Input";
 import { Button } from "@shared/ui/Button";
 import { Form } from "@shared/ui/Form";
 import { Title } from "@shared/ui/Typography";
+import { useAuthStore } from "../model/store/authStore";
 
 export const LoginForm = () => {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  const login = useAuthStore((state) => state.login);
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const onFinish = (values: any) => {
-    console.log("Form submitted:", values);
+  const onFinish = async (values: { email: string; password: string }) => {
+    try {
+      await login(values.email, values.password);
+      console.log("Login seccessful!");
+    } catch (e) {
+      console.log("Login failed. Please try again.");
+    }
   };
 
   return (
