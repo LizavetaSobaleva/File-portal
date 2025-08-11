@@ -1,5 +1,3 @@
-// src/shared/lib/buildMenuTree.ts
-
 type Job = {
   tenant: string;
   controls: string[];
@@ -26,19 +24,28 @@ export function buildMenuTree(jobs: Job[]): MenuNode[] {
     }
   }
 
-  return Array.from(tenants.entries()).map(([tenant, controlMap]) => ({
-    key: tenant,
-    label: tenant,
-    path: `/${encodeURIComponent(tenant)}`,
-    children: Array.from(controlMap.entries()).map(([control, types]) => ({
-      key: control,
-      label: control,
-      path: `/${encodeURIComponent(tenant)}/${encodeURIComponent(control)}`,
-      children: Array.from(types).map((type) => ({
-        key: type,
-        label: type,
-        path: `/${encodeURIComponent(tenant)}/${encodeURIComponent(control)}/${encodeURIComponent(type)}`,
-      })),
-    })),
-  }));
+  return Array.from(tenants.entries()).map(([tenant, controlMap]) => {
+    const tenantPath = `/${encodeURIComponent(tenant)}`;
+    return {
+      key: tenantPath,
+      label: tenant,
+      path: tenantPath,
+      children: Array.from(controlMap.entries()).map(([control, types]) => {
+        const controlPath = `${tenantPath}/${encodeURIComponent(control)}`;
+        return {
+          key: controlPath,
+          label: control,
+          path: controlPath,
+          children: Array.from(types).map((type) => {
+            const typePath = `${controlPath}/${encodeURIComponent(type)}`;
+            return {
+              key: typePath,
+              label: type,
+              path: typePath,
+            };
+          }),
+        };
+      }),
+    };
+  });
 }
