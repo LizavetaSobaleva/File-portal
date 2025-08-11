@@ -17,10 +17,15 @@ export const SplitScreenLayout: React.FC<SplitScreenLayoutProps> = ({
   mainContent,
 }) => {
   const renderMedia = () => (
-    <div className={styles.media} style={{ backgroundColor: mediaBgColor }}>
-      {mediaImage && (
-        <img src={mediaImage} alt="media" className={styles.mediaImage} />
-      )}
+    <div
+      className={styles.media}
+      style={{
+        backgroundColor: mediaBgColor,
+        backgroundImage: mediaImage ? `url(${mediaImage})` : undefined,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className={styles.mediaOverlay}>
         <span className={styles.mediaText}>{mediaText}</span>
       </div>
