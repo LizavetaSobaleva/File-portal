@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { buildMenuTree } from "./buildMenuTree";
 
 describe("buildMenuTree", () => {
-  it("transforms jobs into a correct hierarchy", () => {
+  it("transforms jobs into a correct hierarchy with relative paths", () => {
     const jobs = [
       { tenant: "analytics", controls: ["traffic"], type: "overview" },
       { tenant: "analytics", controls: ["sales"], type: "reports" },
@@ -14,62 +14,62 @@ describe("buildMenuTree", () => {
 
     expect(tree).toEqual([
       {
-        key: "analytics",
+        key: "/analytics", // полный путь для уникальности
         label: "analytics",
-        path: "/analytics",
+        path: "analytics", // относительный путь
         children: [
           {
-            key: "traffic",
+            key: "/analytics/traffic",
             label: "traffic",
-            path: "/analytics/traffic",
+            path: "traffic",
             children: [
               {
-                key: "overview",
+                key: "/analytics/traffic/overview",
                 label: "overview",
-                path: "/analytics/traffic/overview",
+                path: "overview",
               },
             ],
           },
           {
-            key: "sales",
+            key: "/analytics/sales",
             label: "sales",
-            path: "/analytics/sales",
+            path: "sales",
             children: [
               {
-                key: "reports",
+                key: "/analytics/sales/reports",
                 label: "reports",
-                path: "/analytics/sales/reports",
+                path: "reports",
               },
             ],
           },
         ],
       },
       {
-        key: "management",
+        key: "/management",
         label: "management",
-        path: "/management",
+        path: "management",
         children: [
           {
-            key: "users",
+            key: "/management/users",
             label: "users",
-            path: "/management/users",
+            path: "users",
             children: [
               {
-                key: "list",
+                key: "/management/users/list",
                 label: "list",
-                path: "/management/users/list",
+                path: "list",
               },
             ],
           },
           {
-            key: "roles",
+            key: "/management/roles",
             label: "roles",
-            path: "/management/roles",
+            path: "roles",
             children: [
               {
-                key: "permissions",
+                key: "/management/roles/permissions",
                 label: "permissions",
-                path: "/management/roles/permissions",
+                path: "permissions",
               },
             ],
           },

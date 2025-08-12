@@ -24,28 +24,19 @@ export function buildMenuTree(jobs: Job[]): MenuNode[] {
     }
   }
 
-  return Array.from(tenants.entries()).map(([tenant, controlMap]) => {
-    const tenantPath = `/${encodeURIComponent(tenant)}`;
-    return {
-      key: tenantPath,
-      label: tenant,
-      path: tenantPath,
-      children: Array.from(controlMap.entries()).map(([control, types]) => {
-        const controlPath = `${tenantPath}/${encodeURIComponent(control)}`;
-        return {
-          key: controlPath,
-          label: control,
-          path: controlPath,
-          children: Array.from(types).map((type) => {
-            const typePath = `${controlPath}/${encodeURIComponent(type)}`;
-            return {
-              key: typePath,
-              label: type,
-              path: typePath,
-            };
-          }),
-        };
-      }),
-    };
-  });
+  return Array.from(tenants.entries()).map(([tenant, controlMap]) => ({
+    key: `/${encodeURIComponent(tenant)}`, // ключ можно оставить полным
+    label: tenant,
+    path: encodeURIComponent(tenant), // теперь относительный
+    children: Array.from(controlMap.entries()).map(([control, types]) => ({
+      key: `/${encodeURIComponent(tenant)}/${encodeURIComponent(control)}`,
+      label: control,
+      path: encodeURIComponent(control), // относительный
+      children: Array.from(types).map((type) => ({
+        key: `/${encodeURIComponent(tenant)}/${encodeURIComponent(control)}/${encodeURIComponent(type)}`,
+        label: type,
+        path: encodeURIComponent(type), // относительный
+      })),
+    })),
+  }));
 }
