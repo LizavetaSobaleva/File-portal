@@ -21,11 +21,11 @@ const routeComponentMap: Record<string, JSX.Element> = {
 
 const generateRoutes = (menu: MenuItem[]): RouteObject[] => {
   return menu.map((item) => ({
-    path: item.path,
+    path: item.relativePath,
     element: item.children ? (
       <Outlet />
     ) : (
-      routeComponentMap[item.path] || <NotFoundPage />
+      routeComponentMap[item.relativePath] || <NotFoundPage />
     ),
     children: item.children ? generateRoutes(item.children) : undefined,
   }));

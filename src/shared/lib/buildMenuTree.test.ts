@@ -14,31 +14,36 @@ describe("buildMenuTree", () => {
 
     expect(tree).toEqual([
       {
-        key: "/analytics", // полный путь для уникальности
+        key: "/analytics",
         label: "analytics",
-        path: "analytics", // относительный путь
+        relativePath: "analytics",
+        absolutePath: "/analytics",
         children: [
           {
             key: "/analytics/traffic",
             label: "traffic",
-            path: "traffic",
+            relativePath: "traffic",
+            absolutePath: "/analytics/traffic",
             children: [
               {
                 key: "/analytics/traffic/overview",
                 label: "overview",
-                path: "overview",
+                relativePath: "overview",
+                absolutePath: "/analytics/traffic/overview",
               },
             ],
           },
           {
             key: "/analytics/sales",
             label: "sales",
-            path: "sales",
+            relativePath: "sales",
+            absolutePath: "/analytics/sales",
             children: [
               {
                 key: "/analytics/sales/reports",
                 label: "reports",
-                path: "reports",
+                relativePath: "reports",
+                absolutePath: "/analytics/sales/reports",
               },
             ],
           },
@@ -47,29 +52,34 @@ describe("buildMenuTree", () => {
       {
         key: "/management",
         label: "management",
-        path: "management",
+        relativePath: "management",
+        absolutePath: "/management",
         children: [
           {
             key: "/management/users",
             label: "users",
-            path: "users",
+            relativePath: "users",
+            absolutePath: "/management/users",
             children: [
               {
                 key: "/management/users/list",
                 label: "list",
-                path: "list",
+                relativePath: "list",
+                absolutePath: "/management/users/list",
               },
             ],
           },
           {
             key: "/management/roles",
             label: "roles",
-            path: "roles",
+            relativePath: "roles",
+            absolutePath: "/management/roles",
             children: [
               {
                 key: "/management/roles/permissions",
                 label: "permissions",
-                path: "permissions",
+                relativePath: "permissions",
+                absolutePath: "/management/roles/permissions",
               },
             ],
           },

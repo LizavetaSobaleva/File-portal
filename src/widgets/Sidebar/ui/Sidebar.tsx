@@ -1,21 +1,13 @@
-import { Layout, MenuProps } from "antd";
-import { useState } from "react";
+import { Layout } from "antd";
+import { useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router";
 import { Menu } from "@shared/ui/Menu";
 import { InformationBanner } from "@widgets/InformationBanner";
 import { UserCard } from "@widgets/UserCard";
 import navigationMenu from "@shared/data/navigationMenu.json";
+import { MenuItem } from "@shared/types/navigation";
 
 const { Sider } = Layout;
-
-type MenuItem = Required<MenuProps>["items"][number];
-
-interface NavigationItem {
-  key: string;
-  label: string;
-  path?: string;
-  children?: NavigationItem[];
-}
 
 export const Sidebar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -24,41 +16,48 @@ export const Sidebar: React.FC = () => {
   const userName = "User Name";
   const userAvatarUrl = undefined;
 
-  const convertMenuItems = (items: NavigationItem[]): MenuItem[] =>
-    items.map((item) => ({
-      key: item.key,
-      label: item.label,
-      ...(item.children
-        ? { children: convertMenuItems(item.children) }
-        : {
-            onClick: () => {
-              if (item.path) {
-                navigate(item.path);
-              }
-            },
-          }),
-    }));
+  // Оптимизированная функция преобразования
+  const convertMenuItems = useCallback(
+    (items: MenuItem[]): MenuItem[] =>
+      items.map((item) => {
+        const newItem = { ...item };
 
-  const menuItems = convertMenuItems(navigationMenu);
+        if (newItem.children) {
+          newItem.children = convertMenuItems(newItem.children);
+        } else {
+          newItem.onClick = () =>
+            newItem.absolutePath && navigate(newItem.absolutePath);
+        }
+
+        return newItem;
+      }),
+    [navigate]
+  );
+
+  // Мемоизация результирующих элементов меню
+  const menuItems = useMemo(
+    () => convertMenuItems(navigationMenu),
+    [convertMenuItems, navigationMenu]
+  );
 
   return (
     <Sider
       collapsible
       collapsed={collapsed}
-      onCollapse={(value) => setCollapsed(value)}
+      onCollapse={setCollapsed}
+      theme="dark"
+      width={256}
+      collapsedWidth={80}
     >
-      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <div
-          style={{
-            padding: "20px 12px",
-            borderBottom: "1px solid #d0dde990",
-            fontSize: "16px",
-            fontWeight: "300",
-            color: "white",
-          }}
-        >
-          LOGO
-        </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          background: "#001529",
+        }}
+      >
+        <div style={styles.logo}>{collapsed ? "L" : "LOGO"}</div>
 
         <UserCard
           name={userName}
@@ -66,12 +65,28 @@ export const Sidebar: React.FC = () => {
           collapsed={collapsed}
         />
 
-        <div style={{ flex: 1, overflowY: "auto" }}>
-          <Menu items={menuItems} />
+        <div style={styles.menuContainer}>
+          <Menu theme="dark" items={menuItems} />
         </div>
 
         <InformationBanner collapsed={collapsed} />
       </div>
     </Sider>
   );
+};
+
+const styles = {
+  logo: {
+    padding: "20px 12px",
+    borderBottom: "1px solid rgba(255,255,255,0.1)",
+    fontSize: "16px",
+    fontWeight: 600,
+    color: "white",
+    textAlign: "center" as const,
+  },
+  menuContainer: {
+    flex: 1,
+    overflowY: "auto" as const,
+    padding: "8px 0",
+  },
 };

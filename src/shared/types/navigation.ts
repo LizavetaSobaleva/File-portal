@@ -1,6 +1,7 @@
 export type MenuItem = {
   key: string;
   label: string;
-  path: string;
+  relativePath: string;
+  absolutePath: string;
   children?: MenuItem[];
 };

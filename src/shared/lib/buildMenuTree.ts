@@ -1,17 +1,12 @@
+import { MenuItem } from "@shared/types/navigation";
+
 type Job = {
   tenant: string;
   controls: string[];
   type: string;
 };
 
-type MenuNode = {
-  key: string;
-  label: string;
-  path: string;
-  children?: MenuNode[];
-};
-
-export function buildMenuTree(jobs: Job[]): MenuNode[] {
+export function buildMenuTree(jobs: Job[]): MenuItem[] {
   const tenants = new Map<string, Map<string, Set<string>>>();
 
   for (const { tenant, controls, type } of jobs) {
@@ -24,19 +19,39 @@ export function buildMenuTree(jobs: Job[]): MenuNode[] {
     }
   }
 
-  return Array.from(tenants.entries()).map(([tenant, controlMap]) => ({
-    key: `/${encodeURIComponent(tenant)}`, // ключ можно оставить полным
-    label: tenant,
-    path: encodeURIComponent(tenant), // теперь относительный
-    children: Array.from(controlMap.entries()).map(([control, types]) => ({
-      key: `/${encodeURIComponent(tenant)}/${encodeURIComponent(control)}`,
-      label: control,
-      path: encodeURIComponent(control), // относительный
-      children: Array.from(types).map((type) => ({
-        key: `/${encodeURIComponent(tenant)}/${encodeURIComponent(control)}/${encodeURIComponent(type)}`,
-        label: type,
-        path: encodeURIComponent(type), // относительный
-      })),
-    })),
-  }));
+  return Array.from(tenants.entries()).map(([tenant, controlMap]) => {
+    // Кодируем значения один раз для tenant
+    const encodedTenant = encodeURIComponent(tenant);
+    const tenantPath = `/${encodedTenant}`;
+
+    return {
+      key: tenantPath,
+      label: tenant,
+      relativePath: encodedTenant,
+      absolutePath: tenantPath,
+      children: Array.from(controlMap.entries()).map(([control, types]) => {
+        // Кодируем значения один раз для control
+        const encodedControl = encodeURIComponent(control);
+        const controlPath = `${tenantPath}/${encodedControl}`;
+
+        return {
+          key: controlPath,
+          label: control,
+          relativePath: encodedControl,
+          absolutePath: controlPath,
+          children: Array.from(types).map((type) => {
+            // Кодируем значения один раз для type
+            const encodedType = encodeURIComponent(type);
+
+            return {
+              key: `${controlPath}/${encodedType}`,
+              label: type,
+              relativePath: encodedType,
+              absolutePath: `${controlPath}/${encodedType}`,
+            };
+          }),
+        };
+      }),
+    };
+  });
 }
