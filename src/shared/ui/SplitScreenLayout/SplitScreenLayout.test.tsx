@@ -2,11 +2,11 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { SplitScreenLayout } from "./SplitScreenLayout";
 
-const TestContent = <div data-testid="main">Main content</div>;
+const TestContent = <div>Main content</div>;
 
 describe("shared/ui/SplitScreenLayout", () => {
   it("renders with media on the left by default", () => {
-    render(
+    const { container } = render(
       <SplitScreenLayout
         mediaText="Hello"
         mediaImage="https://example.com/image.jpg"
@@ -14,29 +14,36 @@ describe("shared/ui/SplitScreenLayout", () => {
       />
     );
 
-    expect(screen.getByText("Hello")).toBeInTheDocument();
-    expect(screen.getByRole("img")).toHaveAttribute(
-      "src",
+    const media = screen.getByTestId("media");
+    expect(media.style.backgroundImage).toContain(
       "https://example.com/image.jpg"
     );
+
+    const wrapper = container.firstElementChild as HTMLElement;
+    expect(wrapper.firstElementChild).toBe(media);
     expect(screen.getByTestId("main")).toBeInTheDocument();
   });
 
-  it("renders without mediaImage when not provided", () => {
-    render(
+  it("renders without backgroundImage when not provided", () => {
+    const mediaBgColor = "#000";
+    const { container } = render(
       <SplitScreenLayout
         mediaText="No Image"
         mainContent={TestContent}
-        mediaBgColor="#000"
+        mediaBgColor={mediaBgColor}
       />
     );
 
-    expect(screen.queryByRole("img")).not.toBeInTheDocument();
-    expect(screen.getByText("No Image")).toBeInTheDocument();
+    const media = screen.getByTestId("media");
+    expect(media.style.backgroundImage).toBe("");
+    expect(media.style.backgroundColor).toBe("rgb(0, 0, 0)");
+
+    const wrapper = container.firstElementChild as HTMLElement;
+    expect(wrapper.firstElementChild).toBe(media);
   });
 
   it("renders with media on the right", () => {
-    render(
+    const { container } = render(
       <SplitScreenLayout
         mediaText="Right"
         mediaPosition="right"
@@ -44,6 +51,9 @@ describe("shared/ui/SplitScreenLayout", () => {
       />
     );
 
-    expect(screen.getByText("Right")).toBeInTheDocument();
+    const media = screen.getByTestId("media");
+    const wrapper = container.firstElementChild as HTMLElement;
+    expect(wrapper.lastElementChild).toBe(media);
+    expect(screen.getByTestId("main")).toBeInTheDocument();
   });
 });

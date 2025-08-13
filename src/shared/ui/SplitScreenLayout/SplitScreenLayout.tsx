@@ -18,6 +18,7 @@ export const SplitScreenLayout: React.FC<SplitScreenLayoutProps> = ({
 }) => {
   const renderMedia = () => (
     <div
+      data-testid="media"
       className={styles.media}
       style={{
         backgroundColor: mediaBgColor,
@@ -33,7 +34,11 @@ export const SplitScreenLayout: React.FC<SplitScreenLayoutProps> = ({
   );
 
   const Media = renderMedia();
-  const Main = <div className={styles.main}>{mainContent}</div>;
+  const Main = (
+    <div data-testid="main" className={styles.main}>
+      {mainContent}
+    </div>
+  );
 
   return (
     <div className={styles.wrapper}>
