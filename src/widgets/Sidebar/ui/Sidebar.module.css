@@ -1,0 +1,52 @@
+.sider {
+  height: 100vh;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: #001529;
+}
+
+.logo {
+  padding: 20px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.logoCollapsed {
+  padding: 12px;
+  font-size: 18px;
+}
+
+.userCard {
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menuContainer {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #d7d9dc50 transparent;
+}
+
+.banner {
+  flex-shrink: 0;
+  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+}
